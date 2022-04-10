@@ -1,8 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const SSLCommerzPayment = require("sslcommerz");
 require("dotenv").config();
-const { v4: uuidv4 } = require("uuid");
 
 const connectDatabase = require("./config/database");
 
@@ -12,6 +10,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 5000;
+
+// import routes
+const payment = require("./routes/payment");
+
+app.use("/api/v1", payment);
 
 // connecting to database
 connectDatabase();
