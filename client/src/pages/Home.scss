@@ -1,0 +1,17 @@
+.home {
+    width: 100%;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+
+    .home_container {
+        width: 80%;
+        margin: 1rem auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+}
