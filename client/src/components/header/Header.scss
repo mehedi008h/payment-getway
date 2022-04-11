@@ -1,0 +1,31 @@
+.navbar {
+    width: 100%;
+    background-color: black;
+    height: 70px;
+    font-family: var(--font-base);
+    padding: 1rem 0;
+
+    display: flex;
+    align-items: center;
+
+    .nav_container {
+        width: 80%;
+        margin: 0 auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #fff;
+
+        h1 {
+            font-family: var(--font-alt);
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+        }
+    }
+}
