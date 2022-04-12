@@ -6,6 +6,7 @@ import Cart from "./pages/cart/Cart";
 import Shipping from "./pages/shipping/Shipping";
 import ConfirmOrder from "./pages/confirmOrder/ConfirmOrder";
 import Payment from "./pages/payment/Payment";
+import Success from "./pages/success/Success";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     <Route path="/shipping" element={<Shipping />} />
                     <Route path="/confirm" element={<ConfirmOrder />} />
                     <Route path="/payment" element={<Payment />} />
+                    <Route path="/success/:id" element={<Success />} />
                 </Routes>
             </BrowserRouter>
         </div>

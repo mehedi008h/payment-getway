@@ -52,8 +52,10 @@ exports.processPayment = async (req, res, next) => {
     };
 
     const order = await Order.create({
-        orderItem,
         shippingData,
+        orderItem,
+        tran_id: productInfo.tran_id,
+        paymentStatus: productInfo.paymentStatus,
         itemsPrice,
         taxPrice,
         shippingPrice,
@@ -83,6 +85,24 @@ exports.processPayment = async (req, res, next) => {
 
 // payment success  => api/v1/success
 exports.paymentSuccess = async (req, res, next) => {
-    res.send(req.body);
-    console.log(req.body);
+    const order = await Order.findOne({ tran_id: req.body.tran_id });
+
+    order.val_id = req.body.val_id;
+    order.paymentStatus = req.body.status;
+
+    await order.save();
+
+    res.redirect(`http://localhost:3000/success/${req.body.tran_id}`);
+};
+
+exports.validate = async (req, res, next) => {
+    console.log("hit");
+    const order = await Order.findOne({ tran_id: req.body.tran_id });
+
+    if (order.val_id === req.body.val_id) {
+        order.paymentStatus = "paymentComplete";
+        await order.save();
+    } else {
+        res.send("Some Thing Wrong");
+    }
 };

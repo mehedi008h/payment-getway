@@ -13,8 +13,10 @@ const port = process.env.PORT || 5000;
 
 // import routes
 const payment = require("./routes/payment");
+const order = require("./routes/order");
 
 app.use("/api/v1", payment);
+app.use("/api/v1", order);
 
 // connecting to database
 connectDatabase();
