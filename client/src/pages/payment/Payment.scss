@@ -10,67 +10,29 @@
         flex-wrap: wrap;
         justify-content: space-between;
 
-        .shipping_container {
+        .payment_button {
             width: 400px;
             background-color: aliceblue;
             padding: 1rem;
             border-radius: 10px;
-
-            .form_group {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                margin-top: 15px;
-                label {
-                    font-size: 18px;
-                    font-weight: 500;
-                }
-
-                input {
-                    height: 35px;
-                    border-radius: 20px;
-                    outline: none;
-                    border: none;
-                    padding: 0.5rem 1rem;
-                }
-
-                button {
-                    border: none;
-                    height: 35px;
-                    background-color: black;
-                    padding: 0.5rem;
-                    color: #fff;
-                    border-radius: 20px;
-                    width: 80%;
-                    margin: 1rem auto;
-                }
-            }
-        }
-
-        .total_container {
-            width: 300px;
-            background-color: aliceblue;
-            padding: 1rem;
-            border-radius: 10px;
-            height: fit-content;
-
-            hr {
-                margin: 1rem 0;
-            }
-
-            p {
-                margin-top: 1rem;
-            }
-
+            margin: 0 auto;
+            text-align: center;
             button {
                 border: none;
-                height: 35px;
+                height: 40px;
                 background-color: black;
                 padding: 0.5rem;
                 color: #fff;
                 border-radius: 20px;
                 width: 80%;
                 margin: 1rem auto;
+                font-weight: 700;
+                letter-spacing: 1px;
+                transition: all 0.5s ease-in-out;
+
+                &:hover {
+                    width: 90%;
+                }
             }
         }
     }

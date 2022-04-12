@@ -6,7 +6,7 @@ const {
     paymentSuccess,
 } = require("../controller/paymentController");
 
-router.route("/init").get(processPayment);
+router.route("/init").post(processPayment);
 router.route("/success").post(paymentSuccess);
 
 module.exports = router;

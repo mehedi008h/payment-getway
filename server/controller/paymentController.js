@@ -1,11 +1,21 @@
 const SSLCommerzPayment = require("sslcommerz");
 const { v4: uuidv4 } = require("uuid");
+const Order = require("../model/order");
 
 // process payment  => api/v1/init
 exports.processPayment = async (req, res, next) => {
+    const {
+        orderItem,
+        shippingData,
+        total_amount,
+        itemsPrice,
+        taxPrice,
+        shippingPrice,
+    } = req.body;
+
     const productInfo = {
-        total_amount: 1000,
-        currency: "BDT",
+        total_amount: total_amount,
+        currency: "USD",
         tran_id: uuidv4(),
         success_url: "http://localhost:5000/api/v1/success",
         fail_url: "http://localhost:5000/failure",
@@ -13,33 +23,44 @@ exports.processPayment = async (req, res, next) => {
         ipn_url: "http://localhost:5000/ipn",
         paymentStatus: "pending",
         shipping_method: "Courier",
-        product_name: "Gucci",
+        product_name: orderItem.name,
         product_category: "Electronic",
-        product_profile: "profile",
-        product_image: "image",
-        cus_name: "cus_name",
-        cus_email: "cus_email",
-        cus_add1: "Dhaka",
+        product_profile: orderItem.name,
+        product_image: orderItem.image,
+        cus_name: shippingData.name,
+        cus_email: shippingData.email,
+        cus_add1: shippingData.address,
         cus_add2: "Dhaka",
-        cus_city: "Dhaka",
+        cus_city: shippingData.city,
         cus_state: "Dhaka",
-        cus_postcode: "1000",
-        cus_country: "Bangladesh",
-        cus_phone: "01711111111",
+        cus_postcode: shippingData.postalCode,
+        cus_country: shippingData.country,
+        cus_phone: shippingData.phoneNo,
         cus_fax: "01711111111",
-        ship_name: "cus_name",
-        ship_add1: "Dhaka",
+        ship_name: shippingData.name,
+        ship_add1: shippingData.address,
         ship_add2: "Dhaka",
-        ship_city: "Dhaka",
+        ship_city: shippingData.city,
         ship_state: "Dhaka",
-        ship_postcode: 1000,
-        ship_country: "Bangladesh",
+        ship_postcode: shippingData.postalCode,
+        ship_country: shippingData.country,
         multi_card_name: "mastercard",
         value_a: "ref001_A",
         value_b: "ref002_B",
         value_c: "ref003_C",
         value_d: "ref004_D",
     };
+
+    const order = await Order.create({
+        orderItem,
+        shippingData,
+        itemsPrice,
+        taxPrice,
+        shippingPrice,
+        total_amount,
+        paidAt: Date.now(),
+        user: shippingData.name,
+    });
 
     const sslcommer = new SSLCommerzPayment(
         process.env.STORE_ID,
@@ -50,8 +71,8 @@ exports.processPayment = async (req, res, next) => {
         const info = { ...productInfo, ...data };
         // console.log(info.GatewayPageURL);
         if (info.GatewayPageURL) {
-            res.redirect(info.GatewayPageURL);
-            // res.json(info.GatewayPageURL);
+            // res.redirect(info.GatewayPageURL);
+            res.json(info.GatewayPageURL);
         } else {
             return res.status(400).json({
                 message: "SSL session was not successful",

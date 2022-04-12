@@ -6,8 +6,10 @@ const Header = () => {
     return (
         <div className="navbar">
             <div className="nav_container">
-                <h1>Payment Getway</h1>
-                <Link to="/">Home</Link>
+                <Link to="/">
+                    <h1>Payment Getway</h1>
+                </Link>
+                <Link to="/cart">Cart</Link>
             </div>
         </div>
     );
