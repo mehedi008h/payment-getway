@@ -18,9 +18,9 @@ exports.processPayment = async (req, res, next) => {
         currency: "USD",
         tran_id: uuidv4(),
         success_url: "http://localhost:5000/api/v1/success",
-        fail_url: "http://localhost:5000/failure",
-        cancel_url: "http://localhost:5000/cancel",
-        ipn_url: "http://localhost:5000/ipn",
+        fail_url: "http://localhost:5000/api/v1/failure",
+        cancel_url: "http://localhost:5000/api/v1/cancel",
+        ipn_url: "http://localhost:5000/api/v1/ipn",
         paymentStatus: "pending",
         shipping_method: "Courier",
         product_name: orderItem.name,
@@ -95,6 +95,28 @@ exports.paymentSuccess = async (req, res, next) => {
     res.redirect(`http://localhost:3000/success/${req.body.tran_id}`);
 };
 
+// payment success  => api/v1/failure
+exports.failure = async (req, res, next) => {
+    const order = await Order.findOne({ tran_id: req.body.tran_id });
+
+    await order.remove();
+    res.redirect(`http://localhost:3000`);
+};
+
+// payment success  => api/v1/cancel
+exports.cancel = async (req, res, next) => {
+    const order = await Order.findOne({ tran_id: req.body.tran_id });
+
+    await order.remove();
+    res.redirect(`http://localhost:3000`);
+};
+
+// payment success  => api/v1/ipn
+exports.ipn = async (req, res, next) => {
+    res.send(req.body);
+};
+
+// payment success  => api/v1/validate
 exports.validate = async (req, res, next) => {
     console.log("hit");
     const order = await Order.findOne({ tran_id: req.body.tran_id });
@@ -103,6 +125,6 @@ exports.validate = async (req, res, next) => {
         order.paymentStatus = "paymentComplete";
         await order.save();
     } else {
-        res.send("Some Thing Wrong");
+        res.send("Something Wrong");
     }
 };

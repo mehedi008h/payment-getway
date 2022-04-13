@@ -13,6 +13,10 @@
         flex-wrap: wrap;
         gap: 30px;
 
+        @media screen and (max-width: 900px) {
+            flex-direction: column;
+        }
+
         .cart_items {
             flex: 3;
 

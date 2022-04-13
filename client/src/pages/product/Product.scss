@@ -14,20 +14,29 @@
     h3 {
         margin-top: 15px;
     }
+    .button_container {
+        display: flex;
+        align-items: center;
+        gap: 30px;
 
-    a {
-        text-decoration: none;
-        padding: 0.5rem 1rem;
-        background-color: aquamarine;
-        font-weight: 500;
-        margin-top: 10px;
-    }
+        a {
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            background-color: black;
+            font-weight: 500;
+            margin-top: 10px;
+            color: #fff;
+            border-radius: 20px;
+        }
 
-    button {
-        border: none;
-        padding: 0.5rem 1rem;
-        background-color: aquamarine;
-        font-weight: 500;
-        margin-top: 10px;
+        button {
+            border: none;
+            padding: 0.5rem 1rem;
+            background-color: maroon;
+            font-weight: 500;
+            margin-top: 10px;
+            color: #fff;
+            border-radius: 20px;
+        }
     }
 }
